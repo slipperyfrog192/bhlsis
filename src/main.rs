@@ -13,25 +13,21 @@ struct Conv2D {
 
 impl Conv2D {
     fn new(num_filters: u32, kernal_shape: (u32, u32), activation: String, input_shape: (u32, u32, u32)) -> Conv2D {
-        let mut weights: Vec<f64> = Vec::new();
         // weights contains the weights for the entire layer
             // in only layer there are num_filters amount of filters
             // each filter has input_shape.2 amount of channels (same as depth or number of dimensions)
             // each channel has a kernal of size kernal_shape
             // so there are num_filters * kernal_shape.0 * kernal_shape.1 * input_shape.2 amount of weights
+        let mut weights: Vec<f64> = Vec::new();
         for _ in 0..num_filters * kernal_shape.0 * kernal_shape.1 * input_shape.2 {
             let val: f64 = SmallRng::from_entropy().sample(StandardNormal);
             weights.push(val);
         }
-        let mut biases: Vec<f64> = Vec::new();
         // biases contains the biases for the entire layer
             // the bias is added to every element of the output for that filter
             // each filter has only one bias
             // so there are num_filters amount of biases
-        for _ in 0..num_filters {
-            let val: f64 = SmallRng::from_entropy().sample(StandardNormal);
-            biases.push(val);
-        }
+        let mut biases: Vec<f64> = vec![0.0; num_filters];
         Conv2D {
             num_filters,
             kernal_shape,
