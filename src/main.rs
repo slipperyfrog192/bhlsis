@@ -27,7 +27,7 @@ impl Conv2D {
             // the bias is added to every element of the output for that filter
             // each filter has only one bias
             // so there are num_filters amount of biases
-        let mut biases: Vec<f64> = vec![0.0; num_filters];
+        let mut biases: Vec<f64> = vec![0.0; num_filters as usize];
         Conv2D {
             num_filters,
             kernal_shape,
